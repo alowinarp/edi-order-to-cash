@@ -1,18 +1,15 @@
-# EDI Order-to-Cash Analytics Pipeline
+Welcome to your new dbt project!
 
-Analytics Engineering portfolio project demonstrating a modern data stack implementation of an EDI-based Order-to-Cash pipeline.
+### Using the starter project
 
-## Stack
-- **Orchestration Layer:** Raw EDI seed data (850 PO / 856 ASN / 810 Invoice)
-- **Transformation:** dbt Core
-- **Warehouse:** Google BigQuery
-- **CI/CD:** GitHub Actions
-- **Visualization:** Looker Studio / Evidence.dev (TBD)
+Try running the following commands:
+- dbt run
+- dbt test
 
-## Data Flow
-Raw EDI → Staging → Intermediate → Marts (Star Schema)
 
-## Key Metrics
-- Perfect Order Percentage
-- Order-to-Ship Lead Time
-- Invoice Discrepancy Rate
+### Resources:
+- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
+- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
+- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
+- Find [dbt events](https://events.getdbt.com) near you
+- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
