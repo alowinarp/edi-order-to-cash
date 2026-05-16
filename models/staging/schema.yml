@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: stg_850_purchase_orders
+    description: "Staged purchase orders from EDI 850 transactions. One row per PO line."
+    columns:
+      - name: po_number
+        description: "Purchase order identifier"
+        tests:
+          - not_null
+
+      - name: line_number
+        description: "Line item number within the PO"
+        tests:
+          - not_null
+
+      - name: upc_gtin
+        description: "Product identifier (UPC/GTIN)"
+        tests:
+          - not_null
+
+      - name: ordered_qty
+        description: "Quantity ordered by the buyer"
+        tests:
+          - not_null
+
+      - name: unit_price
+        description: "Agreed unit price on the PO"
+        tests:
+          - not_null
+
+      - name: po_date
+        description: "Date the PO was issued"
+        tests:
+          - not_null
+
+    # Composite unique test — po_number alone isn't unique (multi-line POs)
+    # dbt_utils.unique_combination_of_columns handles this correctly
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - po_number
+            - line_number
+
+  - name: stg_856_asn
+    description: "Staged Advance Ship Notices from EDI 856 transactions."
+    columns:
+      - name: bol_shipment_number
+        description: "Bill of Lading / shipment identifier"
+        tests:
+          - not_null
+
+      - name: shipped_qty
+        description: "Quantity actually shipped"
+        tests:
+          - not_null
+
+      - name: actual_ship_date
+        description: "Date goods left the warehouse"
+        tests:
+          - not_null
+
+  - name: stg_810_invoices
+    description: "Staged invoices from EDI 810 transactions."
+    columns:
+      - name: invoice_number
+        description: "Unique invoice identifier"
+        tests:
+          - not_null
+
+      - name: invoiced_qty
+        description: "Quantity billed on the invoice"
+        tests:
+          - not_null
+
+      - name: invoiced_unit_price
+        description: "Unit price billed on the invoice"
+        tests:
+          - not_null

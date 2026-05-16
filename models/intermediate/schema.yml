@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: int_po_shipment_matched
+    description: "PO lines joined to ASN shipments. Derives OTIF flags and fill rate."
+    columns:
+      - name: is_otif
+        description: "True if the shipment was on-time and in-full"
+        tests:
+          - not_null
+
+      - name: fill_rate_pct
+        description: "Shipped qty divided by ordered qty. Should always be between 0 and 1."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+              inclusive: true
+
+  - name: int_invoice_po_matched
+    description: "Invoices joined to PO lines. Derives price and qty variance flags."
+    columns:
+      - name: has_price_discrepancy
+        description: "True if invoiced unit price differs from PO unit price"
+        tests:
+          - not_null
+
+      - name: is_invoice_matched
+        description: "True if invoice has no price or qty discrepancies"
+        tests:
+          - not_null

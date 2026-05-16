@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: mart_otif
+    description: "OTIF performance at PO line grain. Source of truth for on-time and in-full KPIs."
+    columns:
+      - name: po_number
+        description: "Purchase order identifier"
+        tests:
+          - not_null
+
+      - name: is_otif
+        description: "True if shipment was both on-time and in-full"
+        tests:
+          - not_null
+
+  - name: mart_invoice_discrepancy
+    description: "Invoice vs PO vs ASN three-way match. Flags price and qty discrepancies."
+    columns:
+      - name: invoice_number
+        description: "Unique invoice identifier"
+        tests:
+          - not_null
+
+      - name: is_invoice_matched
+        description: "True if invoice has no price or qty discrepancies"
+        tests:
+          - not_null
+
+  - name: mart_perfect_order
+    description: "Perfect Order Rate rolled up to PO grain. A PO fails if any line fails."
+    columns:
+      - name: po_number
+        description: "Purchase order identifier — unique at this grain"
+        tests:
+          - not_null
+          - unique
+
+      - name: is_perfect_order
+        description: "True if all lines on the PO passed OTIF, invoice match, and fill rate"
+        tests:
+          - not_null
