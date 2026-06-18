@@ -153,4 +153,4 @@ Intentional data issues embedded in seed CSVs to validate KPI logic:
 
 ## Author
 
-Alowina Peralta · [github.com/apera77](https://github.com/apera77)
+Alowina Peralta · [github.com/alowinarp](https://github.com/alowinarp)
