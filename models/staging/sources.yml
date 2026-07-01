@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: raw_edi
+    description: "Raw EDI data ingested by Airbyte from GCS to BigQuery"
+    database: edi-order-to-cash
+    schema: edi_raw
+    tables:
+      - name: raw_850_purchase_orders
+        description: "Raw EDI 850 Purchase Orders landed by Airbyte"
+      - name: raw_856_asn
+        description: "Raw EDI 856 Advance Ship Notices landed by Airbyte"
+      - name: raw_810_invoices
+        description: "Raw EDI 810 Invoices landed by Airbyte"

@@ -4,7 +4,7 @@
 
 WITH source AS (
 
-    SELECT * FROM {{ ref('raw_856_asn') }}
+    SELECT * FROM {{ source('raw_edi', 'raw_856_asn') }}
 
 ),
 

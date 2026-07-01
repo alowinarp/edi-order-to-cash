@@ -49,3 +49,10 @@ resource "google_project_iam_member" "airbyte_bq_user" {
   role    = "roles/bigquery.user"          # Run load jobs
   member  = "serviceAccount:${google_service_account.airbyte_sa.email}"
 }
+
+# Airbyte needs storage.buckets.get to list bucket metadata (required by GCS connector)
+resource "google_storage_bucket_iam_member" "airbyte_landing_reader" {
+  bucket = google_storage_bucket.edi_landing.name
+  role   = "roles/storage.legacyBucketReader"
+  member = "serviceAccount:${google_service_account.airbyte_sa.email}"
+}

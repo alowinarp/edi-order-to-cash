@@ -4,7 +4,7 @@
 
 WITH source AS (
 
-    SELECT * FROM {{ ref('raw_850_purchase_orders') }}
+    SELECT * FROM {{ source('raw_edi', 'raw_850_purchase_orders') }}
 
 ),
 
