@@ -27,7 +27,7 @@ This project ingests all three transaction sets, joins them across the supply ch
 
 | Layer | Materialization | Responsibility |
 |---|---|---|
-| Seeds | CSV → BigQuery table | Raw EDI transaction data (850, 856, 810) |
+| Raw (Airbyte) | GCS CSV → BigQuery table | Airbyte syncs EDI files from GCS to `edi_raw` dataset |
 | Staging | View | Type casting, column renaming, data quality flags |
 | Intermediate | View | Business logic joins across EDI document pairs |
 | Marts | Table | KPI computation, analyst-ready grain |
@@ -75,6 +75,9 @@ Grain: PO level, rolled up via `LOGICAL_AND()` (`mart_perfect_order`)
 | **Google BigQuery** | Cloud data warehouse (dataset: `edi_order_to_cash`, region: `asia-southeast1`) |
 | **dbt-bigquery 1.11.1** | BigQuery adapter |
 | **dbt_utils 1.3.0** | Extended test library (`accepted_range`, `unique_combination_of_columns`) |
+| **Airbyte Cloud** | EL (Extract/Load) — GCS CSV → BigQuery ingestion |
+| **Google Cloud Storage** | Landing zone for raw EDI files |
+| **Terraform** | Infrastructure-as-code for GCP resources |
 | **GitHub** | Version control (SSH auth) |
 | **Python 3.12.13** | Runtime (via pipx) |
 
@@ -96,8 +99,8 @@ Grain: PO level, rolled up via `LOGICAL_AND()` (`mart_perfect_order`)
 # 1. Install dbt packages
 dbt deps
 
-# 2. Load seed data into BigQuery
-dbt seed
+# 2. Airbyte syncs raw EDI CSVs from GCS to BigQuery (edi_raw dataset)
+# Seeds retained for reference only — ingestion handled by Airbyte
 
 # 3. Run all transformation models
 dbt run
